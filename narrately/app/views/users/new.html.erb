@@ -1,0 +1,88 @@
+ <div id="fb-root"></div>
+      <script type = "text/javascript">
+	
+        window.fbAsyncInit = function() {
+			FB.init({
+				appId      : '333924066629604',
+				status     : true, 
+				cookie     : true,
+				xfbml      : true,
+				oauth      : true,
+			});	
+			
+			
+			function handleLogin(response) {
+			
+				if (response.authResponse) { //Logged IN
+					FB.api('/me', function(user) {
+					
+						if (user) {
+						
+						 var userEmail = user.email;
+						 var userName = user.name;
+						alert(userEmail);
+						var newForm = document.createElement("form");
+						newForm.method = "post";
+						newForm.action = "http://localhost:3000/users";
+						var email = document.createElement("input");
+						email.setAttribute("name", "email");
+						email.setAttribute("value", userEmail);
+						var name = document.createElement("input");
+						name.setAttribute("name", "name");
+						name.setAttribute("value", userName);
+						newForm.appendChild(email);
+						newForm.appendChild(name);
+						document.body.appendChild(newForm);
+						newForm.submit();
+						document.body.removeChild(newForm);
+					}});}
+					
+			};
+			
+			function firstLogin(response) {
+				
+				
+				FB.api('/me', function(user) {
+					
+						if (user) {
+						
+						 var userEmail = user.email;
+						 var userName = user.name;
+						alert(userEmail);
+						var newForm = document.createElement("form");
+						newForm.method = "post";
+						newForm.action = "http://localhost:3000/users";
+						var email = document.createElement("input");
+						email.setAttribute("name", "email");
+						email.setAttribute("value", userEmail);
+						var name = document.createElement("input");
+						name.setAttribute("name", "name");
+						name.setAttribute("value", userName);
+						newForm.appendChild(email);
+						newForm.appendChild(name);
+						document.body.appendChild(newForm);
+						newForm.submit();
+						document.body.removeChild(newForm);
+					}});
+					
+				
+			};	
+				
+		FB.getLoginStatus(handleLogin);
+		FB.Event.subscribe('auth.login', firstLogin);
+	};
+	
+(function() {
+    var e = document.createElement('script'); e.async = true;
+    e.src = document.location.protocol
+    + '//connect.facebook.net/en_US/all.js';
+    document.getElementById('fb-root').appendChild(e);
+}());
+	
+	    
+</script>
+ 
+ 
+<div class="fb-login-button" data-scope="email">
+ Login with Facebook
+</div>
